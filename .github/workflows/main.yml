@@ -4,8 +4,10 @@ on:
     branches:
         - main
     paths:
-        - 'terraform/**'
+        - 'section3/**'
   pull_request:
+    paths:
+        - 'section3/**'
 permissions:
   id-token: write # This is required for aws oidc connection
   contents: read # This is required for actions/checkout
