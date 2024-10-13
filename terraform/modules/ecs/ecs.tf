@@ -2,23 +2,6 @@ resource "aws_ecs_cluster" "main" {
   name = "${var.prefix}-cluster"
 }
 
-data "template_file" "todo_app" {
-  template = file("./templates/ecs/todo_app.json.tpl")
-
-  vars = {
-    app_image         = var.app_image
-    app_port          = var.app_port
-    fargate_cpu       = var.fargate_cpu
-    fargate_memory    = var.fargate_memory
-    aws_region        = var.aws_region
-    DATABASE_HOST     = var.db_endpoint
-    DATABASE_PORT     = 3306
-    DATABASE_NAME     = "demodb"
-    DATABASE_USER     = "root"
-    DATABASE_PASSWORD = "password" # In production, you should use secret manager to store the password
-  }
-}
-
 resource "aws_ecs_task_definition" "app" {
   family                   = "${var.prefix}-app-task"
   execution_role_arn       = aws_iam_role.ecs_tasks_role.arn
@@ -26,7 +9,18 @@ resource "aws_ecs_task_definition" "app" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu
   memory                   = var.fargate_memory
-  container_definitions    = data.template_file.todo_app.rendered
+  container_definitions = templatefile("./templates/ecs/todo_app.json.tpl", {
+    app_image           = var.app_image
+    app_port            = var.app_port
+    fargate_cpu         = var.fargate_cpu
+    fargate_memory      = var.fargate_memory
+    aws_region          = var.aws_region
+    DATABASE_HOST       = var.db_endpoint
+    DATABASE_PORT       = 3306
+    DATABASE_NAME       = "demodb"
+    DATABASE_USER       = "root"
+    DATABASE_PASSWORD   = "TfWorkshopPassw0rd"  # In production, you should use secret manager to store the password
+  })
   depends_on               = [aws_iam_role_policy_attachment.task_execution_role_policy_attachment]
 }
 

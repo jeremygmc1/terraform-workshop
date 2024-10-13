@@ -1,14 +1,14 @@
 resource "aws_security_group" "db_sg" {
-  name   = "db-sg"
-  vpc_id = aws_vpc.vpc.id
+  name   = "${var.prefix}-db-sg"
+  vpc_id = var.tf_workshop_ex3_vpc_id
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_mysql" {
-  security_group_id            = aws_security_group.db_sg.id
+  security_group_id = aws_security_group.db_sg.id
   referenced_security_group_id = aws_security_group.ecs_tasks_sg.id
-  from_port                    = 3306
-  ip_protocol                  = "tcp"
-  to_port                      = 3306
+  from_port         = 3306
+  ip_protocol       = "tcp"
+  to_port           = 3306
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4_db" {
@@ -18,8 +18,8 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4_db" {
 }
 
 resource "aws_security_group" "lb_sg" {
-  name   = "lb-sg"
-  vpc_id = aws_vpc.vpc.id
+  name   = "${var.prefix}-lb-sg"
+  vpc_id = var.tf_workshop_ex3_vpc_id
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_http" {
@@ -45,9 +45,9 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4_lb" {
 }
 
 resource "aws_security_group" "ecs_tasks_sg" {
-  name        = "ecs-tasks-sg"
+  name        = "${var.prefix}-ecs-tasks-sg"
   description = "allow inbound access from the ALB only"
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = var.tf_workshop_ex3_vpc_id
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_traffic_from_lb" {

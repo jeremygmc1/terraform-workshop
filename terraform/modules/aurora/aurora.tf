@@ -6,7 +6,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
   db_subnet_group_name   = var.db_subnet_group_name
   database_name          = "demodb"
   master_username        = "root"
-  master_password        = "password"
+  master_password        = "TfWorkshopPassw0rd"
   storage_encrypted      = false # set this to false for aurora serverless, default true
   skip_final_snapshot    = true
   vpc_security_group_ids = [var.security_group_id]
