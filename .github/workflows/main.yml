@@ -50,7 +50,7 @@ jobs:
             -backend-config="bucket=${AWS_BUCKET_NAME}" \
             -backend-config="key=${AWS_BUCKET_KEY_NAME}" \
             -backend-config="region=${AWS_REGION}" \
-            -backend-config="dynamodb_table=${AWS_DYNAMODB_TABLE}"
+            -backend-config="dynamodb_table=${AWS_DYNAMODB_TABLE_BRIANTEST}"
 
       - name: Terraform Validate
         id: validate
