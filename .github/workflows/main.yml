@@ -2,12 +2,12 @@ name: "terraform remote backend"
 on:
   push:
     branches:
-        - chore/simplify
+      - chore/simplify
     paths:
-        - 'section3/**'
+      - "section3/**"
   pull_request:
     paths:
-        - 'section3/**'
+      - "section3/**"
 permissions:
   contents: read # This is required for actions/checkout
   pull-requests: write # This is required for gh bot to comment PR
@@ -106,5 +106,5 @@ jobs:
 
         # only apply upon push to main branch
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/chore/simplify' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
