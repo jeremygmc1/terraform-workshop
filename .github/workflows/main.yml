@@ -43,7 +43,7 @@ jobs:
       - name: Terraform Init
         id: init
         env:
-          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME_BRIANTEST }}
           AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
         run: |
           terraform init \
