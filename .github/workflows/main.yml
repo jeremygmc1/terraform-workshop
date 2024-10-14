@@ -2,7 +2,7 @@ name: "terraform remote backend"
 on:
   push:
     branches:
-        - main
+        - chore/simplify
     paths:
         - 'section3/**'
   pull_request:
