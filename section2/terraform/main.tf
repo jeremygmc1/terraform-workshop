@@ -10,6 +10,7 @@ resource "aws_instance" "app_server" {
   subnet_id                   = var.tf_workshop_ex1_subnet_id[0]
   vpc_security_group_ids      = var.tf_workshop_ex1_vpc_sg_id
 
+
   tags = {
     Name = "student-1-Ex1-App-Server-Instance"
   }
