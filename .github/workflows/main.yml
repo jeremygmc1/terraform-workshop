@@ -50,6 +50,7 @@ jobs:
             -backend-config="key=${AWS_BUCKET_KEY_NAME}" \
             -backend-config="region=${AWS_REGION}" \
             -backend-config="dynamodb_table=${AWS_DYNAMODB_TABLE_BRIANTEST}"
+            --reconfigure
 
       - name: Terraform Validate
         id: validate
@@ -105,5 +106,5 @@ jobs:
 
         # only apply upon push to main branch
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/chore/simplify' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
