@@ -1,6 +1,6 @@
-variable "prefix" {
+variable "student_id" {
   type        = string
-  description = "Prefix of your ecs cluster name"
+  description = "Student ID"
 }
 
 variable "public_subnet_ids" {
@@ -45,7 +45,7 @@ variable "springboot_app_image" {
 variable "app_count" {
   type        = number
   description = "Number of docker containers to run"
-  default     = 3
+  default     = 2
 }
 
 variable "app_port" {

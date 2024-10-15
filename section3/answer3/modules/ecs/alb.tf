@@ -1,24 +1,24 @@
 resource "aws_alb" "nestjs_main" {
-  name            = "${var.prefix}-nestjs-lb"
+  name            = "${var.student_id}-nestjs-lb"
   subnets         = var.public_subnet_ids
   security_groups = var.lb_sg_ids
 }
 
 resource "aws_alb_target_group" "nestjs_app" {
-  name        = "nestjs-target-group"
+  name        = "${var.student_id}-nestjs-tg"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {
-    healthy_threshold   = "2"
-    interval            = "30"
+    healthy_threshold   = 2
+    interval            = 30
     protocol            = "HTTP"
     matcher             = "200"
-    timeout             = "3"
+    timeout             = 3
     path                = var.health_check_path
-    unhealthy_threshold = "2"
+    unhealthy_threshold = 2
   }
 }
 
@@ -34,29 +34,27 @@ resource "aws_alb_listener" "nestjs_front_end" {
   }
 }
 
-
-
 resource "aws_alb" "springboot_main" {
-  name            = "${var.prefix}-springboot-lb"
+  name            = "${var.student_id}-springboot-lb"
   subnets         = var.public_subnet_ids
   security_groups = var.lb_sg_ids
 }
 
 resource "aws_alb_target_group" "springboot_app" {
-  name        = "springboot-target-group"
+  name        = "${var.student_id}-springboot-tg"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {
-    healthy_threshold   = "2"
-    interval            = "30"
+    healthy_threshold   = 2
+    interval            = 30
     protocol            = "HTTP"
     matcher             = "200"
-    timeout             = "3"
+    timeout             = 3
     path                = var.health_check_path
-    unhealthy_threshold = "2"
+    unhealthy_threshold = 2
   }
 }
 
@@ -71,4 +69,3 @@ resource "aws_alb_listener" "springboot_front_end" {
     type             = "forward"
   }
 }
-

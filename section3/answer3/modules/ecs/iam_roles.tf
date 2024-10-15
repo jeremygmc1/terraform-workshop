@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "assume_role_ecs" {
 }
 
 resource "aws_iam_role" "ecs_execution_role" {
-  name               = "${var.prefix}-ecs-execution-role"
+  name               = "${var.student_id}-ecs-execution-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_ecs.json
 }
 
@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "assume_role_tasks" {
   }
 }
 resource "aws_iam_role" "ecs_tasks_role" {
-  name               = "${var.prefix}-ecs-tasks-role"
+  name               = "${var.student_id}-ecs-tasks-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_tasks.json
 }
 
@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "assume_role_autoscaling" {
 }
 
 resource "aws_iam_role" "ecs_autoscaling_role" {
-  name               = "${var.prefix}-ecs-autoscaling-role"
+  name               = "${var.student_id}-ecs-autoscaling-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_autoscaling.json
 }
 

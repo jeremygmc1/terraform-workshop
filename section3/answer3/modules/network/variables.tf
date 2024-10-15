@@ -1,6 +1,6 @@
-variable "prefix" {
+variable "student_id" {
   type        = string
-  description = "Prefix to be added to all resources"
+  description = "Student ID"
 }
 
 variable "tf_workshop_ex3_vpc_id" {

@@ -1,16 +1,12 @@
-locals {
-  prefix = "student-number"
-}
-
 module "network" {
   source                 = "./modules/network"
-  prefix                 = local.prefix
+  student_id             = var.student_id
   tf_workshop_ex3_vpc_id = var.tf_workshop_ex3_vpc_id
 }
 
 module "rds" {
   source            = "./modules/rds"
-  prefix            = local.prefix
+  student_id        = var.student_id
   security_group_id = module.network.db_sg_id
 
   # Database Connection Credentials
@@ -20,17 +16,17 @@ module "rds" {
 
   applications = {
     "nestjs" = {
-      identifier = "${local.prefix}-nestjs-terraform-workshop-db"
+      identifier = "${var.student_id}-nestjs-db"
     },
     "springboot" = {
-      identifier = "${local.prefix}-springboot-terraform-workshop-db"
+      identifier = "${var.student_id}-springboot-db"
     }
   }
 }
 
 module "ecs" {
   source                 = "./modules/ecs"
-  prefix                 = local.prefix
+  student_id             = var.student_id
   lb_sg_ids              = [module.network.lb_sg_id]
   vpc_id                 = var.tf_workshop_ex3_vpc_id
   ecs_tasks_sg_ids       = [module.network.ecs_tasks_sg_id]

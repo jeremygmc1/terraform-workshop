@@ -1,5 +1,5 @@
 resource "aws_security_group" "db_sg" {
-  name   = "${var.prefix}-db-sg"
+  name   = "${var.student_id}-db-sg"
   vpc_id = var.tf_workshop_ex3_vpc_id
 }
 
@@ -18,7 +18,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4_db" {
 }
 
 resource "aws_security_group" "lb_sg" {
-  name   = "${var.prefix}-lb-sg"
+  name   = "${var.student_id}-lb-sg"
   vpc_id = var.tf_workshop_ex3_vpc_id
 }
 
@@ -45,7 +45,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4_lb" {
 }
 
 resource "aws_security_group" "ecs_tasks_sg" {
-  name        = "${var.prefix}-ecs-tasks-sg"
+  name        = "${var.student_id}-ecs-tasks-sg"
   description = "allow inbound access from the ALB only"
   vpc_id      = var.tf_workshop_ex3_vpc_id
 }

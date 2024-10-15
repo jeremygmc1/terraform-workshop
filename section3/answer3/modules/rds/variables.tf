@@ -1,6 +1,6 @@
-variable "prefix" {
+variable "student_id" {
   type        = string
-  description = "Prefix to be added to all resources"
+  description = "Student ID"
 }
 
 variable "security_group_id" {

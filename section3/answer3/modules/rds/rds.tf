@@ -1,7 +1,4 @@
-# This defines a map variable "applications" with two objects, "nestjs" and "springboot". 
-# Each object has two attributes, "db_name" and "identifier". 
-# The default values are "demodb_nestjs" and "nestjs-terraform-workshop-db" for "nestjs", and 
-# "demodb_springboot" and "springboot-terraform-workshop-db" for "springboot".
+# This allows for the creation of a database instance for each application identifier in the map.
 variable "applications" {
   type = map(object({
     identifier = string
@@ -18,7 +15,7 @@ resource "aws_db_instance" "db_instance" {
   engine_version    = "8.0.36"
   instance_class    = "db.t3.micro"
 
-  identifier                      = "${each.value.identifier}" # takes value from the map
+  identifier                      = each.value.identifier # takes value from the map
   db_name                         = var.database_name
   username                        = var.database_username
   password                        = var.database_password
@@ -35,7 +32,7 @@ resource "aws_db_instance" "db_instance" {
 
 # This deploys the rds Subnet Group
 resource "aws_db_subnet_group" "db_subnet_group" {
-  name = "db-subnet-group"
+  name = "${var.student_id}-db-subnet-group"
   subnet_ids = [
     var.tf_workshop_ex3_private_subnet_1_id,
     var.tf_workshop_ex3_private_subnet_2_id

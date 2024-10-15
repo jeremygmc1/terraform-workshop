@@ -23,3 +23,9 @@ variable "tf_workshop_ex3_db_password" {
   description = "value of the password for the database"
   default     = "TerraformRocksPa33W0rd!"
 }
+
+variable "student_id" {
+  type        = string
+  description = "Student ID"
+  default     = "student-420"
+}
