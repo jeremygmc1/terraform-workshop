@@ -40,15 +40,12 @@ jobs:
 
       - name: Terraform Init
         id: init
-        env:
-          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME_BRIANTEST }}
-          AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
         run: |
           terraform init \
-            -backend-config="bucket=${AWS_BUCKET_NAME_BRIANTEST}" \
-            -backend-config="key=${AWS_BUCKET_KEY_NAME}" \
-            -backend-config="region=${AWS_REGION}" \
-            -backend-config="dynamodb_table=${AWS_DYNAMODB_TABLE_BRIANTEST}"
+            -backend-config="bucket=${secrets.AWS_BUCKET_NAME_BRIANTEST}" \
+            -backend-config="key=${secrets.AWS_BUCKET_KEY_NAME}" \
+            -backend-config="region=${secrets.AWS_REGION}" \
+            -backend-config="dynamodb_table=${secrets.AWS_DYNAMODB_TABLE_BRIANTEST}"
 
       - name: Terraform Validate
         id: validate
