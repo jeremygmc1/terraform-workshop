@@ -4,6 +4,7 @@ module "network" {
   tf_workshop_ex3_vpc_id = var.tf_workshop_ex3_vpc_id
 }
 
+
 module "rds" {
   source            = "./modules/rds"
   student_id        = var.student_id
