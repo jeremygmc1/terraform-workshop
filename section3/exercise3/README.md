@@ -11,5 +11,12 @@ In this exercise, we will be deploying a frontend onto S3, 2 backends onto ECS a
 
 ## Docker Image
 The docker images have already been prepared here:
-**NestJS**: smithquaz/intro-cloud-deployment-nestjs
-**SpringBoot**: smithquaz/intro-cloud-deployment-springboot
+- **NestJS**: smithquaz/intro-cloud-deployment-nestjs
+- **SpringBoot**: smithquaz/intro-cloud-deployment-springboot
+
+## Overall Concepts
+- Utilising Terraform Modules to manage resources
+- Deployment through Github Actions Pipeline (configured in exercise 2). For this exercise, you can just use the script that we have already configured.
+
+## RDS Deployment
+1. [TO DO]
