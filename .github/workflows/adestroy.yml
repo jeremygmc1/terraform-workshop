@@ -17,15 +17,16 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./section2/terraform
+        working-directory: ./section3/answer3 # temporarily pointing to answer3
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
 
-      - name: Configure AWS credentials from AWS account
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_BRIANTEST }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_BRIANTEST }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Setup Terraform
@@ -35,9 +36,9 @@ jobs:
 
       - name: Terraform Init
         env:
-          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME_BRIANTEST }}
           AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
-          AWS_DYNAMODB_TABLE: ${{ secrets.AWS_DYNAMODB_TABLE }}
+          AWS_DYNAMODB_TABLE: ${{ secrets.AWS_DYNAMODB_TABLE_BRIANTEST }}
         run: |
           terraform init \
             -backend-config="bucket=${AWS_BUCKET_NAME}" \

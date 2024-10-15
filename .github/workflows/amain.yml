@@ -2,10 +2,12 @@ name: "terraform remote backend"
 on:
   push:
     branches:
-      - main
+      - chore/simplify
     paths:
-      - "section2/terraform/**"
+        - 'section3/**'
   pull_request:
+    paths:
+        - 'section3/**'
 permissions:
   contents: read # This is required for actions/checkout
   pull-requests: write # This is required for gh bot to comment PR
@@ -18,15 +20,16 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./section2/terraform
+        working-directory: ./section3/answer3 # temporarily pointing to answer3
     steps:
       - name: Git checkout
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials from AWS account
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_BRIANTEST }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_BRIANTEST }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Setup Terraform
@@ -44,7 +47,7 @@ jobs:
           AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
         run: |
           terraform init \
-            -backend-config="bucket=${AWS_BUCKET_NAME_BRIANTEST}" \
+            -backend-config="bucket=${AWS_BUCKET_NAME}" \
             -backend-config="key=${AWS_BUCKET_KEY_NAME}" \
             -backend-config="region=${AWS_REGION}" \
             -backend-config="dynamodb_table=${AWS_DYNAMODB_TABLE_BRIANTEST}"
@@ -103,5 +106,5 @@ jobs:
 
         # only apply upon push to main branch
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/chore/simplify' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
