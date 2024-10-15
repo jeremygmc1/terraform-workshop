@@ -45,12 +45,13 @@ jobs:
         env:
           AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME_BRIANTEST }}
           AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
+          AWS_DYNAMODB_TABLE: ${{ secrets.AWS_DYNAMODB_TABLE_BRIANTEST }}
         run: |
           terraform init \
             -backend-config="bucket=${AWS_BUCKET_NAME}" \
             -backend-config="key=${AWS_BUCKET_KEY_NAME}" \
             -backend-config="region=${AWS_REGION}" \
-            -backend-config="dynamodb_table=${AWS_DYNAMODB_TABLE_BRIANTEST}"
+            -backend-config="dynamodb_table=${AWS_DYNAMODB_TABLE}"
             --reconfigure
 
       - name: Terraform Validate
