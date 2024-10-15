@@ -28,6 +28,8 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_BRIANTEST }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_BRIANTEST }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
